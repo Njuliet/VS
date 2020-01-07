@@ -1,0 +1,71 @@
+https://blog.csdn.net/qionggaobi9328/article/details/98748328
+环境变量：
+方法一：新建系统变量OpenCV，添加入path
+	OpenCV,E:\OpenCV\opencv\build
+	Path：添加%OPENCV%\x86\vc12\bin
+方法二：直接将OpenCV\build\x64\vc\bin和OpenCV\build\x86\vc\bin添加入path
+
+配置项目
+	1新建win32控制台应用程序，勾选创建空项目
+	2打开视图下的属性管理器，右击选择项目属性
+	3需要配置路径的三个地方：vc++目录下的包含目录、库目录以及链接器-输入
+		3.1包含目录(3个)：OpenCV\build\include;  OpenCV\build\include\opencv;  OpenCV\build\include\opencv2.
+		3.2库目录：OpenCV\build\x64\vc12\lib; 
+		3.3输入：直接粘贴
+debug：
+opencv_calib3d2411d.lib
+opencv_contrib2411d.lib
+opencv_core2411d.lib
+opencv_features2d2411d.lib
+opencv_flann2411d.lib
+opencv_gpu2411d.lib
+opencv_highgui2411d.lib
+opencv_imgproc2411d.lib
+opencv_legacy2411d.lib
+opencv_ml2411d.lib
+opencv_nonfree2411d.lib
+opencv_objdetect2411d.lib
+opencv_ocl2411d.lib
+opencv_photo2411d.lib
+opencv_stitching2411d.lib
+opencv_superres2411d.lib
+opencv_ts2411d.lib
+opencv_video2411d.lib
+opencv_videostab2411d.lib
+
+Relese：
+opencv_calib3d2411.lib
+opencv_contrib2411.lib
+opencv_core2411.lib
+opencv_features2d2411.lib
+opencv_flann2411.lib
+opencv_gpu2411.lib
+opencv_highgui2411.lib
+opencv_imgproc2411.lib
+opencv_legacy2411.lib
+opencv_ml2411.lib
+opencv_nonfree2411.lib
+opencv_objdetect2411.lib
+opencv_ocl2411.lib
+opencv_photo2411.lib
+opencv_stitching2411.lib
+opencv_superres2411.lib
+opencv_ts2411.lib
+opencv_video2411.lib
+opencv_videostab2411.lib
+
+
+测试代码：
+#include "stdafx.h"
+#include <opencv2/opencv.hpp>
+using namespace std;
+using namespace cv;
+ 
+int main(){
+	Mat src = imread("?C:\\Users\\shl\\Desktop\\girl.jpg");  //注意imread参数路径是双斜杠“\\”
+	namedWindow("tupian :",1);
+	imshow("tupain:", src);
+	waitKey(0);
+	return 0;
+}
+ 
