@@ -1,11 +1,11 @@
-//输入两个.ply文件然后输出配准结果
+//输入两个.ply文件然后输出配准结果为pcd文件
 //P和Q是同一个场景有交集的不同位置处扫描的点云。
 //http://pointclouds.org/documentation/tutorials/interactive_icp.php#interactive-icp
 
 
 #include <iostream>
 #include <string>
-
+#include <pcl/io/pcd_io.h>
 #include <pcl/io/ply_io.h>
 #include <pcl/point_types.h>
 #include <pcl/registration/icp.h>
@@ -46,7 +46,7 @@ main()
 	PointCloudT::Ptr cloud_icp(new PointCloudT);  // ICP output point cloud
 
 
-	int iterations = 16;  // Default number of ICP iterations
+	int iterations = 1;  // Default number of ICP iterations
 
 
 	pcl::console::TicToc time;
@@ -115,6 +115,7 @@ main()
 	{
 		std::cout << "\nICP has converged, score is " << icp.getFitnessScore() << std::endl;
 		std::cout << "\nICP transformation " << iterations << " : cloud_icp -> cloud_in" << std::endl;
+		pcl::io::savePCDFileASCII("dragonUpRight_transformed_icp.pcd", *cloud_icp);
 		transformation_matrix = icp.getFinalTransformation().cast<double>();
 		print4x4Matrix(transformation_matrix);
 	}
@@ -188,6 +189,7 @@ main()
 			{
 				printf("\033[11A");  // Go up 11 lines in terminal output.
 				printf("\nICP has converged, score is %+.0e\n", icp.getFitnessScore());
+				pcl::io::savePCDFileASCII("dragonUpRight_transformed_icp.pcd", *cloud_icp);
 				std::cout << "\nICP transformation " << ++iterations << " : cloud_icp -> cloud_in" << std::endl;
 				transformation_matrix *= icp.getFinalTransformation().cast<double>();  // WARNING /!\ This is not accurate! For "educational" purpose only!
 				print4x4Matrix(transformation_matrix);  // Print the transformation between original pose and current pose打印原始位姿和当前位姿之间的转换
