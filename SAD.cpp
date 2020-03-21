@@ -56,8 +56,8 @@
 //
 //int main()
 //{
-//	Mat left = imread("a1.jpg");
-//	Mat right = imread("b1.jpg");
+//	Mat left = imread("Left.jpg");
+//	Mat right = imread("Right.jpg");
 //	/*Mat left = imread("Left1.jpg");
 //	Mat right = imread("Right1.jpg");*/
 //	//-------图像显示-----------
@@ -76,7 +76,7 @@
 //	//-------结果显示------
 //	namedWindow("Disparity");
 //	imshow("Disparity", Disparity);
-//	imwrite("SAD_RGB_Disparity.jpg", Disparity);
+//	imwrite("Left_SAD_RGB_Disparity.jpg", Disparity);
 //	//imwrite("SAD_Disparity.jpg", Disparity);//imwrite()函数用来保存图片，第一个参数表示需要写入的文件名，必须要加上后缀，比如“123.png”。
 //	//-------收尾------
 //	waitKey(0);
