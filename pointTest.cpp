@@ -19,12 +19,12 @@ int user_data;
 //const double Tx = 84;              // 118.33;      //基线84毫米  改变这个参数10->84->180，图像分层问题都没有明显变化
 //const double doffs = 13.876242 ;//像素差    缺   // 代表两个相机主点在x方向上的差距, doffs = |u1 - u0|  分别是两个摄像头标定得到的内参中的U
 
-const double u0 = 316.8240047904172;    //    点云分层问题还是没有解决
-const double v0 = 198.2668609773827;
-const double fx = 481.4472493269789;
-const double fy = 481.1805805296773;
-const double Tx = 84;              // 118.33;      //基线84毫米  改变这个参数10->84->180，图像分层问题都没有明显变化
-const double doffs = 10.872696;//像素差 
+const double u0 = 341.74968377270648;    //    点云分层问题还是没有解决
+const double v0 = 236.10021158917539;
+const double fx = 533.70141137441306;
+const double fy = 533.83894162717877;
+const double Tx = 33.267335558390052;              // 118.33;      //基线84毫米  改变这个参数10->84->180，图像分层问题都没有明显变化
+const double doffs = 14.97398503103;//像素差 
 
 void viewerOneOff(visualization::PCLVisualizer& viewer)
 {
@@ -38,8 +38,8 @@ int main()
 
 
 
-	Mat color1 = imread("Left.jpg");
-	Mat depth = imread("Left_SAD_RGB_Disparity.jpg");
+	Mat color1 = imread("left01.jpg");
+	Mat depth = imread("SGBM_RGB_Disparity.jpg");
 	////Resize
 	//color1.resize();
 	Mat color;
