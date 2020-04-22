@@ -1,6 +1,11 @@
 //https://www.cnblogs.com/riddick/p/8486223.html
 //空洞填充的函数代码如下，
 //大家报错都是因为类型问题，函数名写清楚了32F，取值在0-1之间的，你的视差图是0-255的，此问题终结。
+//生成的填充后的图无法保存，因为OpenCV默认的图像格式为CV_8UC3，此时图像为3通道、8位RGB图像，每个通道所能表达的灰度阶为28=256 2^8=2562 
+//OpenCV默认的图像格式为CV_8UC3，此时图像为3通道、8位RGB图像，每个通道所能表达的灰度阶为2 ^ 8 = 256。
+//而视差图常为CV_16S或CV_32S等，如果直接使用cv::imwrite()保存视差图或深度图，则图像将被转成CV_8U格式，而像素值大于255将会被转成255。
+
+// https://blog.csdn.net/YunLaowang/article/details/86583351
 
 //简洁版：
 //
@@ -115,14 +120,12 @@ int main()
 	cout << depth.rows;//480
 
 	depth.convertTo(depth, CV_32F, 1.0 / 255);
-	/*A8u、A32f、B8u和B32f*/
-		//
-		//那么A8u转换到A32f的方法为：A8u.comvertTo(A32f, CV_32F, 1.0 / 255);
-		insertDepth32f(depth);
 
-	imshow("insertdepth", depth);
-	//imwrite("disparity.png", disparity);
-	
+	insertDepth32f(depth);
+
+	imshow("insertDepth", depth);
+	imwrite("insertDepth.bmp", depth);
+	//cvSaveImage("insertDepth.jpg", depth);
 	//-------收尾------
 	waitKey(0);
 	return 0;
