@@ -39,7 +39,7 @@ int main()
 
 
 	Mat color1 = imread("left01.jpg");
-	Mat depth = imread("SGBM_RGB_Disparity.jpg");
+	Mat depth = imread("depth.png");
 	////Resize
 	//color1.resize();
 	Mat color;
