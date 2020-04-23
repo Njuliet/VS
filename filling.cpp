@@ -6,7 +6,7 @@
 //而视差图常为CV_16S或CV_32S等，如果直接使用cv::imwrite()保存视差图或深度图，则图像将被转成CV_8U格式，而像素值大于255将会被转成255。
 
 // https://blog.csdn.net/YunLaowang/article/details/86583351
-
+// CV_32F的图片如何保存???
 //简洁版：
 //
 //假设有四幅图像：A8u、A32f、B8u和B32f
@@ -123,8 +123,12 @@ int main()
 
 	insertDepth32f(depth);
 
-	imshow("insertDepth", depth);
+	imshow("insertDepth32", depth);
+	depth.convertTo(depth, CV_8U, 255);
+
+	imshow("insertDepth8", depth);
 	imwrite("insertDepth.bmp", depth);
+	//cv::imwrite("*.exr", depth);
 	//cvSaveImage("insertDepth.jpg", depth);
 	//-------收尾------
 	waitKey(0);
