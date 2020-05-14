@@ -1,11 +1,13 @@
 %读取图片
 sceneImageL = imread('fullLeft.jpg');
+%  sceneImageL = imread('im2.png');
 % sceneImageL = imread('Left.jpg');%未校正的图像角点非常少
 LeftImage=rgb2gray(sceneImageL);%图片转为灰度图
 % figure;%建立图形
 % imshow(sceneImage);
 % title('Image of a Left');
 sceneImageR= imread('fullRight.jpg');
+% sceneImageR= imread('im6.png');
 % sceneImageR= imread('Right.jpg');
 RightImage=rgb2gray(sceneImageR);%图片转为灰度图
 % figure;
@@ -51,5 +53,25 @@ figure;
 showMatchedFeatures(LeftImage, RightImage, inlierLeftPoints, ...
     inlierRightPoints, 'montage');
 title('Matched Points (Inliers Only)');
-leftCoord1=inlierLeftPoints.Location;%存储一定匹配的特征点坐标
+
+% leftCoord1=inlierLeftPoints.Location;%存储一定匹配的特征点坐标
+leftCoord1=matchedLeftPoints.Location;%存储可能匹配的特征点坐标
 rightCoord1=inlierRightPoints.Location;
+
+leftdistance=pdist(leftCoord1);%共从1累加到size(leftCoord1)的总数列
+%size(leftCoord1,1)可得矩阵的行数，也就是一定匹配的特征点的个数
+
+maxdistance=max(leftdistance);
+mindistance=min(leftdistance);
+
+figure;%创建一个新的窗口
+imshow(LeftImage);
+hold on;%保留当前坐标轴中的绘图，从而使新添加到坐标轴的绘图不会删除现有绘图
+for i=1:size(leftCoord1,1)%可得矩阵的行数，也就是一定匹配的特征点的个数
+    a1=leftCoord1(i,:);%第一个圆心坐标
+    a2=a1(:,1);  %坐标的x值
+    a3=a1(:,2);  %坐标的y值
+    plot1(a2,a3,maxdistance/8);
+    hold on;
+end
+
