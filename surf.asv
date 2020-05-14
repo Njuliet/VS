@@ -54,41 +54,30 @@ showMatchedFeatures(LeftImage, RightImage, inlierLeftPoints, ...
     inlierRightPoints, 'montage');
 title('Matched Points (Inliers Only)');
 
-leftCoord1=inlierLeftPoints.Location;%存储一定匹配的特征点坐标
-rightCoord1=inlierRightPoints.Location;%存储一定匹配的特征点坐标
-% leftCoord1=matchedLeftPoints.Location;%存储可能匹配的特征点坐标
-% rightCoord1=matchedRightPoints.Location;
+% leftCoord1=inlierLeftPoints.Location;%存储一定匹配的特征点坐标
+leftCoord1=matchedLeftPoints.Location;%存储可能匹配的特征点坐标
+rightCoord1=matchedRightPoints.Location;
 
 leftdistance=pdist(leftCoord1);%共从1累加到size(leftCoord1)的总数列
 rightdistance=pdist(rightCoord1);
 %size(leftCoord1,1)可得矩阵的行数，也就是一定匹配的特征点的个数
 
-leftmaxdistance=max(leftdistance);%左图中特征点的最大距离
-leftmindistance=min(leftdistance);%左图中特征点的最小距离
-rightmaxdistance=max(rightdistance);%右图中特征点的最大距离
-rightmindistance=min(rightdistance);%右图中特征点的最小距离
+leftmaxdistance=max(leftdistance);%
+leftmindistance=min(leftdistance);%
+rightmaxdistance=max(rightdistance);%
+rightmindistance=min(rightdistance);%
 
-maxdistance=max(leftmaxdistance,rightmaxdistance);%选出左右图中最大的特征点距离
-mindistance=min(leftmindistance,rightmindistance);%选出左右图中最小的特征点距离
+maxdistance=max(leftmaxdistance,rightmaxdistance);
+mindistance=min(leftmindistance,rightmindistance);
 
 figure;%创建一个新的窗口
-imshow(sceneImageL);
+imshow(LeftImage);
 hold on;%保留当前坐标轴中的绘图，从而使新添加到坐标轴的绘图不会删除现有绘图
 for i=1:size(leftCoord1,1)%可得矩阵的行数，也就是一定匹配的特征点的个数
     a1=leftCoord1(i,:);%第一个圆心坐标
     a2=a1(:,1);  %坐标的x值
     a3=a1(:,2);  %坐标的y值
-    plot1(a2,a3,maxdistance/8);%左图特征点画圆
+    plot1(a2,a3,maxdistance/8);
     hold on;
 end
 
-figure;%创建一个新的窗口
-imshow(sceneImageR);
-hold on;%保留当前坐标轴中的绘图，从而使新添加到坐标轴的绘图不会删除现有绘图
-for i=1:size(rightCoord1,1)%可得矩阵的行数，也就是一定匹配的特征点的个数
-    a1=rightCoord1(i,:);%第一个圆心坐标
-    a2=a1(:,1);  %坐标的x值
-    a3=a1(:,2);  %坐标的y值
-    plot1(a2,a3,maxdistance/8);%右图特征点画圆
-    hold on;
-end
