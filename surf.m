@@ -36,7 +36,7 @@ Pairs = matchFeatures(LeftFeatures,RightFeatures);
 matchedLeftPoints = LeftPoints(Pairs(:, 1), :);
 matchedRightPoints = RightPoints(Pairs(:, 2), :);
 
-leftCoord=matchedLeftPoints.Location;%存储特征点坐标
+leftCoord=matchedLeftPoints.Location;%存储可能匹配的特征点坐标
 rightCoord=matchedRightPoints.Location;
 %leftCoord 和rightCoord就是经过筛选的匹配点
 figure;
@@ -51,3 +51,5 @@ figure;
 showMatchedFeatures(LeftImage, RightImage, inlierLeftPoints, ...
     inlierRightPoints, 'montage');
 title('Matched Points (Inliers Only)');
+leftCoord1=inlierLeftPoints.Location;%存储一定匹配的特征点坐标
+rightCoord1=inlierRightPoints.Location;
