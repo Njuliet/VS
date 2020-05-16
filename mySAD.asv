@@ -1,0 +1,24 @@
+clc;
+clear;
+left=double(rgb2gray(imread('imL.png')));
+right=double(rgb2gray(imread('imR.png')));
+
+[m ,n]=size(left); %行数（垂直分辨率）、列数（水平分辨率）
+
+w=9;       %窗口半径
+
+flag1=zeros(m,n);  %用来标志左图中的像素点是否访问过  图像坐标系是以图像的左上角为原点
+flag2=zeros(m,n);  %右图
+
+yuzhi=20;
+%对每一对特征点（x1,y1）(x2,y2) 来说
+%点的横坐标范围是0-n,纵坐标是0-m
+step=5;%窗口增大步长
+[leftCoord1x,leftCoord1y,rightCoord1x,rightCoord1y]=mysurf(imread('imL.png'),imread('imR.png'));
+% x1,y1是左中心坐标，x2,y2是右中心坐标，step是每次往外扩的步长，diff是视差的最大值,flag1是左图的标志矩阵，flag2是右图的标志矩阵
+for i=1:length(leftCoord1x)
+    x1
+[flag1,flag2] = window( x1,y1,x2,y2,step,yuzhi,flag1,flag2);
+
+
+
