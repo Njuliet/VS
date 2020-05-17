@@ -1,6 +1,6 @@
 
 
-function [leftCoord1x,leftCoord1y,rightCoord1x,rightCoord1y] = mysurf( sceneImageL,sceneImageR)
+function [leftCoord1x,leftCoord1y,rightCoord1x,rightCoord1y] = mysurf( sceneImageL,sceneImageR,r)
 %读取图片
 %sceneImageL = imread('fullLeft.jpg');%写成函数所以把图片当做是传入参数
 %  sceneImageL = imread('im2.png');
@@ -67,37 +67,37 @@ rightCoord1y=rightCoord1(:,2);
 % leftCoord1=matchedLeftPoints.Location;%存储可能匹配的特征点坐标
 % rightCoord1=matchedRightPoints.Location;
 
-leftdistance=pdist(leftCoord1);%共从1累加到size(leftCoord1)的总数列
-rightdistance=pdist(rightCoord1);
-%size(leftCoord1,1)可得矩阵的行数，也就是一定匹配的特征点的个数
-
-leftmaxdistance=max(leftdistance);%左图中特征点的最大距离
-leftmindistance=min(leftdistance);%左图中特征点的最小距离
-rightmaxdistance=max(rightdistance);%右图中特征点的最大距离
-rightmindistance=min(rightdistance);%右图中特征点的最小距离
-
-maxdistance=max(leftmaxdistance,rightmaxdistance);%选出左右图中最大的特征点距离
-mindistance=min(leftmindistance,rightmindistance);%选出左右图中最小的特征点距离
-
+% leftdistance=pdist(leftCoord1);%共从1累加到size(leftCoord1)的总数列
+% rightdistance=pdist(rightCoord1);
+% %size(leftCoord1,1)可得矩阵的行数，也就是一定匹配的特征点的个数
+% 
+% leftmaxdistance=max(leftdistance);%左图中特征点的最大距离
+% leftmindistance=min(leftdistance);%左图中特征点的最小距离
+% rightmaxdistance=max(rightdistance);%右图中特征点的最大距离
+% rightmindistance=min(rightdistance);%右图中特征点的最小距离
+% 
+% maxdistance=max(leftmaxdistance,rightmaxdistance);%选出左右图中最大的特征点距离
+% mindistance=min(leftmindistance,rightmindistance);%选出左右图中最小的特征点距离
+% 
 figure;%创建一个新的窗口
-imshow(sceneImageL);
+% imshow(LeftImage);
 hold on;%保留当前坐标轴中的绘图，从而使新添加到坐标轴的绘图不会删除现有绘图
 for i=1:size(leftCoord1,1)%可得矩阵的行数，也就是一定匹配的特征点的个数
     a1=leftCoord1(i,:);%第一个圆心坐标
     a2=a1(:,1);  %坐标的x值
     a3=a1(:,2);  %坐标的y值
-    plotSquare(a2,a3,maxdistance/8);%左图特征点画圆
+    plotSquare(a2,a3,r);%左图特征点画圆
     hold on;
 end
 
 figure;%创建一个新的窗口
-imshow(sceneImageR);
+imshow(RightImage);
 hold on;%保留当前坐标轴中的绘图，从而使新添加到坐标轴的绘图不会删除现有绘图
 for i=1:size(rightCoord1,1)%可得矩阵的行数，也就是一定匹配的特征点的个数
     a1=rightCoord1(i,:);%第一个圆心坐标
     a2=a1(:,1);  %坐标的x值
     a3=a1(:,2);  %坐标的y值
-    plotSquare(a2,a3,maxdistance/8);%右图特征点画圆
+    plotSquare(a2,a3,r);%右图特征点画圆
     hold on;
 end
 end
