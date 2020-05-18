@@ -1,23 +1,52 @@
-function [flag1,flag2,imgn] = window( left,right,x1,y1,x2,y2,r,yuzhi,flag1,flag2,n,m,imgn)
-   if( round(x1)-r >=0 && round(x1)+r<=m && round(y1)-r>=0 && round(y1)+r<=n && round(x2)-r >=0 && round(x2)+r<=m && round(y2)-r>=0 && round(y2)+r<=n)
-       sum1=sum(sum(flag1(round(x1)-r:round(x1)+r,round(y1)-r:round(y1)+r)));
-       sum2=sum(sum(flag2(round(x2)-r:round(x2)+r,round(y2)-r:round(y2)+r)));
-       diff=zeros(2*r+1,2*r+1);
-        if sum1 ==0 && sum2==0  %原始正方形 ,这个正方形的边长一定是奇数，因为是以中心点向左三步向右三步一共奇数步
-            temp1=left(round(x1)-r:round(x1)+r,round(y1)-r:round(y1)+r);
-            temp2=right(round(x2)-r:round(x2)+r,round(y2)-r:round(y2)+r);
-            diff=temp1-temp2;
-            disparity=sum(sum(abs(diff)));
-            if disparity<yuzhi
-                flag1(round(x1)-r:round(x1)+r,round(y1)-r:round(y1)+r)=1;%若符合小于阈值条件，标志置1
-                flag2(round(x2)-r:round(x2)+r,round(y2)-r:round(y2)+r)=1;
+function [flag1,flag2,imgn] = window( left,right,x1,y1,x2,y2,r,flag1,flag2,n,m,imgn)
+if( round(x1)-r >=0 && round(x1)+r<=m && round(y1)-r>=0 && round(y1)+r<=n && round(x2)-r >=0 && round(x2)+r<=m && round(y2)-r>=0 && round(y2)+r<=n)
+    WindowLeft=zeros(2*r+1,2*r+1);
+    a=1;
+     for j=round(y1)-r:round(y1)+r
+        b=1;
+       for i=round(x1)-r:round(x1)+r
+            if(flag1(i,j)==0)
+                WindowLeft(a,b)=i;
+                flag1(i,j)=1;
+                b=b+1;
             else
-                flag1(round(x1)-r:round(x1)+r,round(y1)-r:round(y1)+r)=2;%若不符合视差阈值，说明有遮挡，标志置2
-                flag2(round(x2)-r:round(x2)+r,round(y2)-r:round(y2)+r)=2;
+                b=b+1;
             end
-        else
-            %扩大边长后的正方形
         end
-          imgn(round(x1)-r:round(x1)+r,round(y1)-r:round(y1)+r)=diff;
+        a=a+1;
     end
+    WindowRight=zeros(2*r+1,2*r+1);
+    a=1;
+    for j=round(y2)-r:round(y2)+r
+        b=1;
+        for i=round(x2)-r:round(x2)+r
+            if(flag2(i,j)==0)
+                WindowRight(a,b)=i;
+                flag2(i,j)=1;
+                b=b+1;
+            else
+                b=b+1;
+            end
+        end
+        a=a+1;
+    end
+    disparity=WindowLeft-WindowRight;
+    c=1;
+    for j=round(y1)-r:round(y1)+r
+        d=1;
+        for i=round(x1)-r:round(x1)+r
+            if imgn(i,j)==0
+                imgn(i,j)=disparity(c,d);
+            end
+            d=d+1;
+        end
+        c=c+1;
+    end
+    %           imgn(round(x1)-r:round(x1)+r,round(y1)-r:round(y1)+r)=disparity;
+%     axis ij ;
+%     plotSquare( x1,y1,r );
+%     
+%     title('测试左视差图window');
+%     axis equal;
+end
 end
