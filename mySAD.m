@@ -5,7 +5,7 @@ right=double(rgb2gray(imread('imR.png')));
 
 [m ,n]=size(left); %行数（垂直分辨率）、列数（水平分辨率）
 
-r=10  ;       %初始窗口边长的一半
+r=3  ;       %初始窗口边长的一半
 imgn=zeros(m,n); %左视差图
 imgn1=zeros(m,n); %右视差图
 
@@ -28,7 +28,7 @@ rightCoord1y=rightsort(:,2);
 %   figure;%创建一个新的窗口
 %   hold on;
 % x1,y1是左中心坐标，x2,y2是右中心坐标，step是每次往外扩的步长，diff是视差的最大值,flag1是左图的标志矩阵，flag2是右图的标志矩阵
-% while r <= max(m,n)
+while r <= max(m,n)
 for index=1:length(leftCoord1x)
     x1=leftCoord1x(index);
     y1=leftCoord1y(index);
@@ -38,8 +38,8 @@ for index=1:length(leftCoord1x)
     %     plotSquare( x2,y2,r );
     [flag1,flag2,imgn] = window( left,right,x1,y1,x2,y2,r,flag1,flag2,n,m,imgn);
 end
-%     r=r+step;
-% end
+     r=r+step;
+ end
 % title('左图匹配区域');
 % axis equal;
 % figure;%创建一个新的窗口
